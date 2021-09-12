@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "469037922887",
+    "project_id": "open-news-52eaa",
+    "storage_bucket": "open-news-52eaa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:469037922887:android:2ef55a1d9db23502d14f62",
+        "android_client_info": {
+          "package_name": "com.sanjaya.joseph.opennews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "469037922887-ldbl4d97oq4t9u6lbn5374qn5nf5g4d5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_QpJMgvCCyGt6GKvQyhiJ9I2NH9L8Rzk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "469037922887-ldbl4d97oq4t9u6lbn5374qn5nf5g4d5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

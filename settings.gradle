@@ -1,0 +1,21 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter() // Warning: this repository is going to shut down soon
+        maven { url "https://jitpack.io" }
+        maven {
+            url "https://mvnrepository.com/artifact/commons-validator/commons-validator"
+            content {
+                includeGroup "commons-validator"
+            }
+        }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        maven { url "https://maven.google.com/" }
+        mavenLocal()
+    }
+}
+rootProject.name = "Open News"
+include ':app'
+include ':core'
