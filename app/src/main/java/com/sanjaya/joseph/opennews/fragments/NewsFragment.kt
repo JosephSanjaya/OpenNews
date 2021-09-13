@@ -33,6 +33,9 @@ import com.sanjaya.joseph.opennews.adapter.NewsAdapter
 import com.sanjaya.joseph.opennews.databinding.FragmentNewsBinding
 import com.sanjaya.joseph.opennews.utils.prepareAnim
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import android.content.Intent
+import android.net.Uri
+
 
 class NewsFragment :
     Fragment(R.layout.fragment_news),
@@ -122,7 +125,11 @@ class NewsFragment :
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val selected = mAdapter.getItem(position)
-        IntentUtils.
+        if (selected is DefaultProvider.Success) {
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(selected.data.url)
+            startActivity(i)
+        }
     }
 
     override fun onLoadMore() {
