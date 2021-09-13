@@ -7,30 +7,30 @@
 
 package com.sanjaya.joseph.core.domain
 
-import com.squareup.moshi.Json
-import com.thinkinglogic.builder.annotation.Builder
+import com.google.gson.annotations.SerializedName
 
 data class Sources(
-    val flag: Int? = null,
+    @field:SerializedName("flag")
+    var flag: Int? = null,
 
-    @Json(name = "country")
+    @field:SerializedName("country")
     val country: String? = null,
 
-    @Json(name = "name")
+    @field:SerializedName("name")
     val name: String? = null,
 
-    @Json(name = "description")
+    @field:SerializedName("description")
     val description: String? = null,
 
-    @Json(name = "language")
+    @field:SerializedName("language")
     val language: String? = null,
 
-    @Json(name = "id")
+    @field:SerializedName("id")
     val id: String? = null,
 
-    @Json(name = "category")
+    @field:SerializedName("category")
     val category: String? = null,
 
-    @Json(name = "url")
+    @field:SerializedName("url")
     val url: String? = null
 )

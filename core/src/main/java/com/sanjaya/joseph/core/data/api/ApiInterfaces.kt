@@ -8,9 +8,7 @@
 package com.sanjaya.joseph.core.data.api
 
 import android.content.Context
-import com.sanjaya.joseph.core.domain.News
-import com.sanjaya.joseph.core.domain.ResponseResult
-import com.sanjaya.joseph.core.domain.Sources
+import com.sanjaya.joseph.core.domain.*
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -62,21 +60,25 @@ interface ApiInterfaces {
         @Query("sortBy") sortBy: String? = null,
         @Query("pageSize") pageSize: Int = 20,
         @Query("page") page: Int = 0,
-    ): ResponseResult<List<News>>
+    ): NewsResponse
 
     /**
      * Get News sources
      *
      */
     @GET("v2/sources")
-    suspend fun getSources(): ResponseResult<List<Sources>>
+    suspend fun getSources(
+        @Query("category") category: String? = null
+    ): SourcesResponse
 
     /**
      * Get News Headlines sources
      *
      */
     @GET("v2/top-headlines/sources")
-    suspend fun getTopHeadlinesSources(): ResponseResult<List<Sources>>
+    suspend fun getTopHeadlinesSources(
+        @Query("category") category: String? = null
+    ): SourcesResponse
 
     /**
      * Get top headlines
@@ -103,5 +105,5 @@ interface ApiInterfaces {
         @Query("q") q: String? = null,
         @Query("pageSize") pageSize: Int = 20,
         @Query("page") page: Int = 0,
-    ): ResponseResult<List<News>>
+    ): NewsResponse
 }

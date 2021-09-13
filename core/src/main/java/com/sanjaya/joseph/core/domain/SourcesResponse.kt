@@ -7,15 +7,12 @@
 
 package com.sanjaya.joseph.core.domain
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 
-data class ResponseResult<T>(
-    @Json(name = "data")
-    val data: T? = null,
+data class SourcesResponse(
+    @field:SerializedName("status")
+    var status: String? = null,
 
-    @Json(name = "status")
-    val message: String? = null,
-
-    @Json(name = "totalResults")
-    val totalResults: Int? = null
+    @field:SerializedName("sources")
+    val sources: List<Sources>? = null,
 )

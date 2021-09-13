@@ -7,32 +7,32 @@
 
 package com.sanjaya.joseph.core.domain
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 
 data class News(
 
-    @Json(name = "publishedAt")
+    @field:SerializedName("publishedAt")
     val publishedAt: String? = null,
 
-    @Json(name = "author")
+    @field:SerializedName("author")
     val author: String? = null,
 
-    @Json(name = "urlToImage")
+    @field:SerializedName("urlToImage")
     val urlToImage: String? = null,
 
-    @Json(name = "description")
+    @field:SerializedName("description")
     val description: String? = null,
 
-    @Json(name = "source")
+    @field:SerializedName("source")
     val source: Sources? = null,
 
-    @Json(name = "title")
+    @field:SerializedName("title")
     val title: String? = null,
 
-    @Json(name = "url")
+    @field:SerializedName("url")
     val url: String? = null,
 
-    @Json(name = "content")
+    @field:SerializedName("content")
     val content: String? = null
 )
 

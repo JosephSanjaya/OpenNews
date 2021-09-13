@@ -46,27 +46,31 @@ class CoreRepository(
             pageSize,
             page
         )
-        emit(State.Double.Success(result.totalResults, result.data))
+        emit(State.Double.Success(result.totalResults, result.articles))
     }
 
     /**
      * Get sources
      * @see ApiInterfaces.getSources
      */
-    fun getSources() = flow {
+    fun getSources(
+        category: Categories? = null
+    ) = flow {
         emit(State.Single.Loading())
-        val result = service.getSources()
-        emit(State.Single.Success(result.data))
+        val result = service.getSources(category?.value)
+        emit(State.Single.Success(result.sources))
     }
 
     /**
      * Get Top Headlines Sources
      * @see ApiInterfaces.getTopHeadlinesSources
      */
-    fun getTopHeadlinesSources() = flow {
+    fun getTopHeadlinesSources(
+        category: Categories? = null
+    ) = flow {
         emit(State.Single.Loading())
-        val result = service.getTopHeadlinesSources()
-        emit(State.Single.Success(result.data))
+        val result = service.getTopHeadlinesSources(category?.value)
+        emit(State.Single.Success(result.sources))
     }
 
     /**
@@ -90,6 +94,6 @@ class CoreRepository(
             pageSize,
             page
         )
-        emit(State.Double.Success(result.totalResults, result.data))
+        emit(State.Double.Success(result.totalResults, result.articles))
     }
 }

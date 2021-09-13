@@ -68,8 +68,8 @@ class CoreViewModel(
         _sources.resetSingleState()
     }
 
-    fun getSources() = ioScope.launch {
-        repo.getSources()
+    fun getSources(category: Categories? = null) = ioScope.launch {
+        repo.getSources(category)
             .catch {
                 _sources.emit(State.Single.Failed(it))
             }
@@ -80,14 +80,14 @@ class CoreViewModel(
 
     private val _headlineSources =
         MutableStateFlow<State.Single<List<Sources>?>>(State.Single.Idle())
-    val mHeadlineSources get() = _sources.asImmutable()
+    val mHeadlineSources get() = _headlineSources.asImmutable()
 
     fun resetHeadlineSources() {
         _headlineSources.resetSingleState()
     }
 
-    fun getTopHeadlineSources() = ioScope.launch {
-        repo.getSources()
+    fun getTopHeadlineSources(category: Categories? = null) = ioScope.launch {
+        repo.getTopHeadlinesSources(category)
             .catch {
                 _headlineSources.emit(State.Single.Failed(it))
             }

@@ -7,12 +7,11 @@
 
 package com.sanjaya.joseph.opennews.adapter
 
-import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
-import androidx.core.content.ContextCompat
-import com.blankj.utilcode.util.ColorUtils
+import com.blongho.country_data.World
 import com.chad.library.adapter.base.BaseProviderMultiAdapter
 import com.chad.library.adapter.base.animation.SlideInLeftAnimation
+import com.chad.library.adapter.base.module.LoadMoreModule
 import com.sanjaya.joseph.core.domain.DefaultProvider
 import com.sanjaya.joseph.core.domain.Sources
 import com.sanjaya.joseph.opennews.R
@@ -21,7 +20,9 @@ import com.sanjaya.joseph.opennews.utils.buildEmptyAdapterView
 class SourceAdapter(
     inflater: LayoutInflater,
     data: MutableList<DefaultProvider<Sources>>
-) : BaseProviderMultiAdapter<DefaultProvider<Sources>>(data) {
+) : BaseProviderMultiAdapter<DefaultProvider<Sources>>(data), LoadMoreModule {
+
+    private val completeData = mutableListOf<Sources>()
 
     override fun getItemType(data: List<DefaultProvider<Sources>>, position: Int): Int {
         return when (val type = data[position]) {
@@ -31,6 +32,7 @@ class SourceAdapter(
     }
 
     fun startLoading(howMuch: Int) {
+        completeData.clear()
         val tempData = mutableListOf<DefaultProvider<Sources>>()
         (0..howMuch).forEach { _ ->
             tempData.add(DefaultProvider.Loading())
@@ -38,6 +40,32 @@ class SourceAdapter(
         setNewInstance(tempData)
     }
 
+    fun updateData(updatedData: MutableList<Sources>) {
+        completeData.clear()
+        completeData.addAll(updatedData)
+        val newData = mutableListOf<DefaultProvider<Sources>>()
+        newData.addAll(
+            updatedData.map {
+                DefaultProvider.Success(
+                    it.apply {
+                        flag = World.getFlagOf(it.country)
+                    }
+                )
+            }.toMutableList()
+        )
+        setNewInstance(newData)
+    }
+
+    fun filter(predicate: (Sources) -> Boolean) =
+        setNewInstance(
+            completeData.filter(predicate).map {
+                DefaultProvider.Success(
+                    it.apply {
+                        flag = World.getFlagOf(it.country)
+                    }
+                )
+            }.toMutableList()
+        )
 
     init {
         adapterAnimation = SlideInLeftAnimation()
@@ -45,18 +73,17 @@ class SourceAdapter(
         addChildClickViewIds(R.id.cvRoot)
         setEmptyView(
             inflater.buildEmptyAdapterView(
-                title = "Belum membuat Catatan Keuangan",
-                msg = "Tekan Tambah untuk membuat Catatan Keuangan",
-                logo = R.drawable.ic_illustrasi_empty
+                title = "No Source Data Found",
+                msg = "Please check you keywords.",
+                logo = R.drawable.bg_no_data
             )
         )
         loadMoreModule.apply {
-            loadMoreModule.loadMoreView = LoadMoreView.transaksi()
+            loadMoreModule.loadMoreView = LoadMoreView.sources()
             loadMoreModule.checkDisableLoadMoreIfNotFullPage()
             isEnableLoadMore = true
         }
-        addItemProvider(TransaksiProvider.Loading())
-        addItemProvider(TransaksiProvider.Overview(interfaces = interfaces))
-        addItemProvider(TransaksiProvider.Data(interfaces = interfaces, mRekeningId = rekeningId))
+        addItemProvider(SourcesProvider.Loading())
+        addItemProvider(SourcesProvider.Success())
     }
 }
