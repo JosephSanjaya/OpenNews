@@ -12,23 +12,23 @@ import coil.load
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.sanjaya.joseph.core.domain.DefaultProvider
-import com.sanjaya.joseph.core.domain.Sources
+import com.sanjaya.joseph.core.domain.News
 import com.sanjaya.joseph.opennews.R
-import com.sanjaya.joseph.opennews.databinding.RowCategoryBinding
-import com.sanjaya.joseph.opennews.databinding.RowSourcesLoadingBinding
+import com.sanjaya.joseph.opennews.databinding.RowNewsBinding
+import com.sanjaya.joseph.opennews.databinding.RowNewsLoadingBinding
 
-object SourcesProvider {
+object NewsProvider {
     class Loading(
         override val itemViewType: Int = DefaultProvider.LOADING_LAYOUT,
-        override val layoutId: Int = R.layout.row_sources_loading,
-    ) : BaseItemProvider<DefaultProvider<Sources>>() {
+        override val layoutId: Int = R.layout.row_news_loading,
+    ) : BaseItemProvider<DefaultProvider<News>>() {
         override fun onViewHolderCreated(viewHolder: BaseViewHolder, viewType: Int) {
-            DataBindingUtil.bind<RowSourcesLoadingBinding>(viewHolder.itemView)
+            DataBindingUtil.bind<RowNewsLoadingBinding>(viewHolder.itemView)
             super.onViewHolderCreated(viewHolder, viewType)
         }
 
-        override fun convert(helper: BaseViewHolder, item: DefaultProvider<Sources>) {
-            DataBindingUtil.getBinding<RowSourcesLoadingBinding>(helper.itemView)
+        override fun convert(helper: BaseViewHolder, item: DefaultProvider<News>) {
+            DataBindingUtil.getBinding<RowNewsLoadingBinding>(helper.itemView)
                 ?.loadingView
                 ?.startShimmer()
         }
@@ -36,21 +36,20 @@ object SourcesProvider {
 
     class Success(
         override val itemViewType: Int = DefaultProvider.SUCCESS_LAYOUT,
-        override val layoutId: Int = R.layout.row_category,
-    ) : BaseItemProvider<DefaultProvider<Sources>>() {
+        override val layoutId: Int = R.layout.row_news,
+    ) : BaseItemProvider<DefaultProvider<News>>() {
 
         override fun onViewHolderCreated(viewHolder: BaseViewHolder, viewType: Int) {
-            DataBindingUtil.bind<RowCategoryBinding>(viewHolder.itemView)
+            DataBindingUtil.bind<RowNewsBinding>(viewHolder.itemView)
             super.onViewHolderCreated(viewHolder, viewType)
         }
 
-        override fun convert(helper: BaseViewHolder, item: DefaultProvider<Sources>) {
+        override fun convert(helper: BaseViewHolder, item: DefaultProvider<News>) {
             item as DefaultProvider.Success
-            DataBindingUtil.getBinding<RowCategoryBinding>(helper.itemView)?.apply {
-                tvTitle.text = item.data.name
-                item.data.flag?.let {
-                    ivBG.load(it)
-                }
+            DataBindingUtil.getBinding<RowNewsBinding>(helper.itemView)?.apply {
+                tvTitle.text = item.data.title
+                ivImage.load(item.data.urlToImage)
+                tvDate.text = item.data.publishedAt
             }
         }
     }

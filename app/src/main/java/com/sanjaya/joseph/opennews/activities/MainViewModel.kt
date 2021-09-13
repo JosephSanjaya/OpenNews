@@ -7,23 +7,20 @@
 
 package com.sanjaya.joseph.opennews.activities
 
-import androidx.lifecycle.MutableLiveData
 import com.sanjaya.joseph.core.domain.Categories
 import com.sanjaya.joseph.core.domain.Sources
 import com.sanjaya.joseph.core.presentation.BaseViewModel
 
 class MainViewModel : BaseViewModel() {
-    private val _categories = MutableLiveData(Categories.General)
-    val mCategories get() = _categories.asImmutable()
+    private var _categories = Categories.General
+    val categories get() = _categories
     fun setCategories(categories: Categories) {
-        _categories.postValue(categories)
+        _categories = categories
     }
 
-    private val _sources = MutableLiveData<Sources>()
-    val mSources get() = _sources.asImmutable()
+    private var _sources: Sources? = null
+    val sources get() = _sources
     fun setSources(sources: Sources) {
-        _sources.postValue(sources)
+        _sources = sources
     }
-
-    fun getCategoriesAndSources() = Pair(_categories.value, _sources.value)
 }

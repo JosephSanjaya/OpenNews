@@ -16,6 +16,8 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.blankj.utilcode.util.ToastUtils
@@ -44,8 +46,8 @@ class SourcesFragment :
             setOnItemClickListener(this@SourcesFragment)
         }
     }
+    private val mActivityViewModel by activityViewModels<MainViewModel>()
     private val mViewModel by viewModel<CoreViewModel>()
-    private val mSharedViewModel by activityViewModels<MainViewModel>()
     private val mHandler = Handler(Looper.getMainLooper())
 
     override fun onCreateView(
@@ -76,7 +78,7 @@ class SourcesFragment :
     }
 
     override fun onRefresh() {
-        mViewModel.getTopHeadlineSources()
+        mViewModel.getTopHeadlineSources(mActivityViewModel.categories)
     }
 
     override fun onHeadlinesSourcesLoading() {
@@ -88,7 +90,6 @@ class SourcesFragment :
 
     override fun onHeadlinesSourcesSuccess(sources: List<Sources>?) {
         super.onHeadlinesSourcesSuccess(sources)
-        mBinding.srlRefresh.prepareAnim()
         mAdapter.updateData((sources ?: emptyList()).toMutableList())
         mBinding.srlRefresh.isRefreshing = false
     }
@@ -96,7 +97,6 @@ class SourcesFragment :
     override fun onHeadlinesSourcesFailed(e: Throwable) {
         super.onHeadlinesSourcesFailed(e)
         mBinding.srlRefresh.isRefreshing = false
-        mBinding.srlRefresh.prepareAnim()
         mAdapter.setNewInstance(mutableListOf())
         ToastUtils.showShort(e.message ?: "Failed to load data.")
     }
@@ -104,7 +104,8 @@ class SourcesFragment :
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val selected = mAdapter.getItem(position)
         if (selected is DefaultProvider.Success) {
-            mSharedViewModel.setSources(selected.data)
+            mActivityViewModel.setSources(selected.data)
+            findNavController().navigate(R.id.action_sourceFragment_to_newsFragment)
         }
     }
 

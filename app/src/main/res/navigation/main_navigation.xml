@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2021 Designed and developed by Joseph Sanjaya, S.T., M.Kom., All
+  ~ Rights Reserved.
+  ~ @Github (https://github.com/JosephSanjaya),
+  ~ @LinkedIn (https://www.linkedin.com/in/josephsanjaya/))
+  -->
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/categoryFragment"
+    android:id="@+id/main_navigation">
+
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.sanjaya.joseph.opennews.fragments.CategoriesFragment"
+        android:label="@string/label_categories"
+        tools:layout="@layout/fragment_categories">
+        <action
+            android:id="@+id/action_categoryFragment_to_sourceFragment"
+            app:destination="@id/sourceFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/sourceFragment"
+        android:name="com.sanjaya.joseph.opennews.fragments.SourcesFragment"
+        android:label="@string/label_sources"
+        tools:layout="@layout/fragment_sources">
+        <action
+            android:id="@+id/action_sourceFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.sanjaya.joseph.opennews.fragments.NewsFragment"
+        android:label="@string/label_articles"
+        tools:layout="@layout/fragment_news">
+    </fragment>
+</navigation>

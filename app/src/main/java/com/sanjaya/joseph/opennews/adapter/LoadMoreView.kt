@@ -22,6 +22,7 @@ class LoadMoreView(
         parent.getItemView(
             when (type) {
                 is Type.Sources -> type.layout
+                is Type.News -> type.layout
             }
         )
 
@@ -40,8 +41,10 @@ class LoadMoreView(
     companion object {
         sealed class Type {
             class Sources(val layout: Int = R.layout.row_sources_loading) : Type()
+            class News(val layout: Int = R.layout.row_news_loading) : Type()
         }
 
         fun sources(): LoadMoreView = LoadMoreView(Type.Sources())
+        fun news(): LoadMoreView = LoadMoreView(Type.News())
     }
 }

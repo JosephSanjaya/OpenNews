@@ -32,6 +32,7 @@ class SourceAdapter(
     }
 
     fun startLoading(howMuch: Int) {
+        completeData.clear()
         val tempData = mutableListOf<DefaultProvider<Sources>>()
         (0..howMuch).forEach { _ ->
             tempData.add(DefaultProvider.Loading())
