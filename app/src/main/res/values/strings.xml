@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Open News</string>
+    <string name="label_categories">Categories</string>
+    <string name="label_sources">Sources</string>
 </resources>

@@ -7,6 +7,8 @@
 
 package com.sanjaya.joseph.core.presentation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -53,4 +55,6 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     fun <T> MutableStateFlow<T>.asImmutable() = this as StateFlow<T>
+
+    fun <T> MutableLiveData<T>.asImmutable() = this as LiveData<T>
 }

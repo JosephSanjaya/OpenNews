@@ -80,14 +80,14 @@ class CoreViewModel(
 
     private val _headlineSources =
         MutableStateFlow<State.Single<List<Sources>?>>(State.Single.Idle())
-    val mHeadlineSources get() = _sources.asImmutable()
+    val mHeadlineSources get() = _headlineSources.asImmutable()
 
     fun resetHeadlineSources() {
         _headlineSources.resetSingleState()
     }
 
     fun getTopHeadlineSources() = ioScope.launch {
-        repo.getSources()
+        repo.getTopHeadlinesSources()
             .catch {
                 _headlineSources.emit(State.Single.Failed(it))
             }

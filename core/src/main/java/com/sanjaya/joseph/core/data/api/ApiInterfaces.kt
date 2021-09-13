@@ -11,6 +11,7 @@ import android.content.Context
 import com.sanjaya.joseph.core.domain.News
 import com.sanjaya.joseph.core.domain.ResponseResult
 import com.sanjaya.joseph.core.domain.Sources
+import com.sanjaya.joseph.core.domain.SourcesResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -76,7 +77,7 @@ interface ApiInterfaces {
      *
      */
     @GET("v2/top-headlines/sources")
-    suspend fun getTopHeadlinesSources(): ResponseResult<List<Sources>>
+    suspend fun getTopHeadlinesSources(): SourcesResponse
 
     /**
      * Get top headlines

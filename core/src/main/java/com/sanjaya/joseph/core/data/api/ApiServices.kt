@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiServices(context: Context) {
     private val chuckerCollector = ChuckerCollector(
@@ -62,7 +62,7 @@ class ApiServices(context: Context) {
         .baseUrl(Secured.baseUrl())
         .client(okHttpClient)
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
-        .addConverterFactory(MoshiConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create())
         .build()
 
     companion object {

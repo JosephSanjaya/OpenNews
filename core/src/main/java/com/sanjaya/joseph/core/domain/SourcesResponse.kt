@@ -9,13 +9,10 @@ package com.sanjaya.joseph.core.domain
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseResult<T>(
-    @field:SerializedName("data")
-    val data: T? = null,
-
+data class SourcesResponse(
     @field:SerializedName("status")
-    val message: String? = null,
+    var status: String? = null,
 
-    @field:SerializedName("totalResults")
-    val totalResults: Int? = null
+    @field:SerializedName("sources")
+    val sources: List<Sources>? = null,
 )

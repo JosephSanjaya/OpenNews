@@ -10,11 +10,14 @@ package com.sanjaya.joseph.opennews.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.sanjaya.joseph.opennews.R
+import com.sanjaya.joseph.opennews.activities.MainActivity.Companion.launchSources
+import com.sanjaya.joseph.opennews.activities.MainViewModel
 import com.sanjaya.joseph.opennews.adapter.CategoriesAdapter
 import com.sanjaya.joseph.opennews.databinding.FragmentCategoriesBinding
 import com.sanjaya.joseph.opennews.utils.prepareAnim
@@ -29,6 +32,7 @@ class CategoriesFragment :
             setOnItemClickListener(this@CategoriesFragment)
         }
     }
+    private val mSharedViewModel by activityViewModels<MainViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,6 +48,8 @@ class CategoriesFragment :
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-
+        val selected = mAdapter.getItem(position)
+        mSharedViewModel.setCategories(selected.value)
+        context?.launchSources()
     }
 }

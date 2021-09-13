@@ -66,7 +66,7 @@ class CoreRepository(
     fun getTopHeadlinesSources() = flow {
         emit(State.Single.Loading())
         val result = service.getTopHeadlinesSources()
-        emit(State.Single.Success(result.data))
+        emit(State.Single.Success(result.sources))
     }
 
     /**

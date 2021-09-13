@@ -8,6 +8,7 @@
 package com.sanjaya.joseph.opennews
 
 import androidx.multidex.MultiDexApplication
+import com.blongho.country_data.World
 import com.sanjaya.joseph.core.di.CoreModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -17,6 +18,7 @@ class NewsApp : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        World.init(this)
         initKoin()
     }
 
